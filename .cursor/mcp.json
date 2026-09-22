@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "jenkins": {
+      "type": "stdio",
+      "command": "/bin/zsh",
+      "args": ["-lc", "node '${workspaceFolder}/scripts/jenkins-mcp.mjs'"],
+      "env": {
+        "DOCKER_HOST": "unix://${userHome}/.docker/run/docker.sock"
+      }
+    }
+  }
+}
