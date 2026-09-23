@@ -21,7 +21,7 @@ export function SalesTrendChart({
   yMax,
   yTicks,
   formatValue,
-}: SalesTrendChartProps) {
+}: Readonly<SalesTrendChartProps>) {
   const width = 640;
   const height = 280;
   const pad = { top: 28, right: 56, bottom: 36, left: 52 };
@@ -42,11 +42,7 @@ export function SalesTrendChart({
         <h2>{title}</h2>
         <span className="sales-unit-tag">Unit: {unit}</span>
       </div>
-      <svg
-        viewBox={`0 0 ${width} ${height}`}
-        role="img"
-        aria-label={`${title} line chart`}
-      >
+      <svg viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
         {yTicks.map((tick) => (
           <g key={tick}>
             <line

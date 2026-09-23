@@ -67,8 +67,11 @@ function averageOf(series: TrendPoint[]): number {
 }
 
 function dayOverDayChange(series: TrendPoint[]): string {
-  const previous = series[series.length - 2].value;
-  const latest = series[series.length - 1].value;
+  const previous = series.at(-2)?.value;
+  const latest = series.at(-1)?.value;
+  if (previous === undefined || latest === undefined || previous === 0) {
+    return '0.0%';
+  }
   const percent = ((latest - previous) / previous) * 100;
   return `${percent >= 0 ? '+' : ''}${percent.toFixed(1)}%`;
 }
@@ -149,7 +152,7 @@ export default function DashboardPage() {
           <span className="sales-logo">WINGS</span>
           <span className="sales-role">
             <span className="sales-role-dot" aria-hidden="true" />
-            Brand Manager
+            <span>Brand Manager</span>
           </span>
           <span className="sales-scope">Assigned brand only</span>
         </div>
@@ -165,7 +168,7 @@ export default function DashboardPage() {
             onClick={() => router.push('/logout')}
           >
             <span className="sales-avatar" aria-hidden="true" />
-            Log out
+            <span>Log out</span>
           </button>
         </nav>
       </header>
@@ -178,13 +181,13 @@ export default function DashboardPage() {
           </div>
           <div className="sales-filters">
             <label className="sales-filter">
-              Brand
+              <span>Brand</span>
               <select defaultValue={BRAND} aria-label="Brand">
                 <option>{BRAND}</option>
               </select>
             </label>
             <span className="sales-filter sales-filter-static">{DATE_RANGE}</span>
-            <div className="sales-unit-toggle" role="group" aria-label="Sales unit">
+            <fieldset className="sales-unit-toggle" aria-label="Sales unit">
               <button
                 type="button"
                 className={unit === 'BOX' ? 'is-active' : undefined}
@@ -199,7 +202,7 @@ export default function DashboardPage() {
               >
                 TON
               </button>
-            </div>
+            </fieldset>
           </div>
         </div>
 
@@ -257,13 +260,13 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {!error ? (
+        {error ? null : (
           <p className="sales-footnote">
             {generatedAt
               ? `Served by the Wings API · generated at ${new Date(generatedAt).toLocaleString()}`
               : 'Loading dashboard data…'}
           </p>
-        ) : null}
+        )}
       </section>
     </main>
   );

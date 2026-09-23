@@ -390,6 +390,9 @@ body {
 
 .sales-unit-toggle {
   display: inline-flex;
+  margin: 0;
+  padding: 0;
+  min-inline-size: auto;
   background: #0e2138;
   border: 1px solid var(--sd-border);
   border-radius: 10px;
