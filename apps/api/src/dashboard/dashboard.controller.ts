@@ -37,6 +37,12 @@ export class DashboardController {
           value: 9,
           trend: '-3 vs last week',
         },
+        {
+          key: 'uptime',
+          label: 'Platform Uptime',
+          value: 99.95,
+          trend: 'last 30 days (%)',
+        },
       ],
     };
   }
